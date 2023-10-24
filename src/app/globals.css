@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 
 body{
-  background-color: rgb(21, 9, 9);
-  color: white;
+  @apply bg-gray-950;
+  
+  
 }
