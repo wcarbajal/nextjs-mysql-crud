@@ -25,7 +25,7 @@ export async function POST(request){
   const result = await conn.query("INSERT INTO product SET ?", {
     name, description, price
   })
-  console.log(result)
+  
   return NextResponse.json({
    id: result.insertId, name, description, price
   })

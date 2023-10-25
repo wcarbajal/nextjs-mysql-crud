@@ -46,15 +46,9 @@ export async function DELETE(request, {params}){
      ) 
     }
 
-    return NextResponse.json(
-      {
-        message: "Producto eliminado",
-      },
-      {
-        status: 500
-      }
-  
-     )
+    return new Response(null, {
+        status: 204
+    })
 
   } catch (error) {
     return NextResponse.json(

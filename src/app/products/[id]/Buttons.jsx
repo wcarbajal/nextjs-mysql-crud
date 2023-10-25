@@ -14,10 +14,15 @@ function Buttons({productId}) {
           const respuesta = await axios.delete('/api/products/' + productId)
           if (respuesta.status === 204){
               router.push('/products')
+              router.refresh()
           }
   
       }}}>Delete</button>
-      <button className=" text-white bg-gray-500 hover:bg-gray-700 py-2 px-3 rounded-md w-24">Edit</button>
+      <button className=" text-white bg-gray-500 hover:bg-gray-700 py-2 px-3 rounded-md w-24" 
+      onClick={() => { 
+            router.push(`/products/edit/${productId}`)
+    }
+      }>Edit</button>
     </div>
   )
 }
