@@ -8,7 +8,7 @@ function ProductForm() {
     const router = useRouter()
     const form = useRef(null);
     const params = useParams()
-    
+
 
     const [product, setProduct] = useState({
         name: "",
@@ -19,7 +19,7 @@ function ProductForm() {
 
 
     const handleChange = e => {
-        
+
         setProduct({
             ...product,
             [e.target.name]: e.target.value
@@ -46,13 +46,23 @@ function ProductForm() {
     const handleClear = () => {
         form.current.reset();
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!params.id) {
+            const res = await axios.post('/api/products', product)
 
-        const res = await axios.post('/api/products', product)
+
+        } else {
+            const res = await axios.put('/api/products/' + params.id, product)
+
+        }
+
+
         form.current.reset();
+        router.refresh();
         router.push('/products')
-        router.refresh()
+
 
 
     }
@@ -70,8 +80,14 @@ function ProductForm() {
                 className="block text-gray-700 text-sm font-bold mb-2">Product Description</label>
             <textarea value={product.description} name="description" rows={3} placeholder="description" onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3" />
             <div>
+                <label htmlFor="productImage"
+                    className="block text-gray-700 text-sm font-bold mb-2">
+                        Product Image: 
+                </label>
+                <input type="file"
+                className="shadow appearance-none border rounded w-full py-2 px-3 mb-2"/>
                 <button
-                    className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 m-2 rounded"> Save product</button>
+                    className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 m-2 rounded "> {params.id ? "Update Product" : "Save Product"}</button>
                 <button
                     className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 m-2 rounded" onClick={handleClear}> Clear product</button>
             </div>
